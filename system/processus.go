@@ -60,3 +60,23 @@ func GetProcessus() ([]Processus, error) {
 	}
 	return pslist, nil
 }
+
+func KillProcessus(id string) (string, error) {
+	pid, err := strconv.ParseInt(id, 10, 32)
+
+	processes, err := process.Processes()
+	if err != nil {
+		return "no process found", err
+	}
+	for _, p := range processes {
+		i := p.Pid
+		if i == int32(pid) {
+			err := p.Kill()
+			if err != nil {
+				return "kill error", err
+			}
+			return "kill ok", nil
+		}
+	}
+	return "process not found", nil
+}

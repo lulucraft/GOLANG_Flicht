@@ -48,3 +48,20 @@ func Get1PC1Processus(ip string, id string) (Processus, error) {
 
 	return ps, nil
 }
+
+func Get1PCKillProcessus(ip string, id string) (string, error) {
+	resp, err := http.Get("http://" + ip + ":8090/processus/kill/" + id)
+	if err != nil {
+		return "", err
+	}
+
+	defer resp.Body.Close()
+	content, _ := ioutil.ReadAll(resp.Body)
+	ps := ""
+	err = json.Unmarshal(content, &ps)
+	if err != nil {
+		return "", err
+	}
+
+	return ps, nil
+}

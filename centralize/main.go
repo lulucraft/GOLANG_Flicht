@@ -130,6 +130,16 @@ func HTTPapi1PC1processus(w http.ResponseWriter, req *http.Request) {
 	system.EnvoiJSON(m, "/api/{ip}/processus/{id}", w)
 }
 
+func HTTPapi1PCkillprocessus(w http.ResponseWriter, req *http.Request) {
+	log.Print("/api/{ip}/processus/kill/{id}")
+	vars := mux.Vars(req)
+	m, err := Get1PCKillProcessus(vars["ip"], vars["id"])
+	if err != nil {
+		log.Printf("Erreur /api/{ip}/processus/kill/{id} : %v", err)
+	}
+	system.EnvoiJSON(m, "/api/{ip}/processus/kill/{id}", w)
+}
+
 // /disque
 func HTTPapi1PCdisque(w http.ResponseWriter, req *http.Request) {
 	log.Print("/api/{ip}/disque")
@@ -182,6 +192,7 @@ func main() {
 	// Processus
 	r.HandleFunc("/api/{ip}/processus", HTTPapi1PCprocessus)
 	r.HandleFunc("/api/{ip}/processus/{id}", HTTPapi1PC1processus)
+	r.HandleFunc("/api/{ip}/processus/kill/{id}", HTTPapi1PCkillprocessus)
 
 	// Disque
 	r.HandleFunc("/api/{ip}/disque", HTTPapi1PCdisque)
