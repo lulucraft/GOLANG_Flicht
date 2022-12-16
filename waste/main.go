@@ -139,7 +139,7 @@ func main() {
 	log.Print("Ufank vun :8090")
 	r := mux.NewRouter()
 	r.HandleFunc("/api", HTTPapi)
-	r.HandleFunc("/cpu", HTTPcpu)
+	r.HandleFunc("/processeur", HTTPcpu)
 	r.HandleFunc("/disque", HTTPdisque)
 	r.HandleFunc("/disque/{id}", HTTP1disque)
 	r.HandleFunc("/ip/passerelle", HTTPippasserelle)

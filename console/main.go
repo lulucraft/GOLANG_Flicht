@@ -84,8 +84,8 @@ func GetMemory(ipaddr string) (Memoire, error) {
 	if err != nil {
 		return Memoire{}, err
 	}
-	return memoire, nil
 
+	return memoire, nil
 }
 
 func GetCharge(ipaddr string) (Charge, error) {
@@ -103,6 +103,7 @@ func GetCharge(ipaddr string) (Charge, error) {
 	if err != nil {
 		return Charge{}, err
 	}
+
 	return charge, nil
 
 }
@@ -125,7 +126,6 @@ func main() {
 
 	for {
 		if choix == 1 {
-
 			m, err := GetMemory(ipadd)
 			if err != nil {
 				log.Fatal(err)
@@ -133,7 +133,6 @@ func main() {
 			fmt.Printf("Mémoire : %v / %v\n", format(m.Used), format(m.Total))
 			time.Sleep(2 * time.Second)
 		} else {
-
 			m, err := GetCharge(ipadd)
 			if err != nil {
 				log.Fatal(err)

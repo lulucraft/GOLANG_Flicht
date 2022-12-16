@@ -41,7 +41,7 @@ func GetProcesseur() ([]Processeur, error) {
 		cpu.PerCent = percents[i]
 		cpus = append(cpus, cpu)
 		i++
-		cpus = append(cpus, cpu)
+		// cpus = append(cpus, cpu)
 	}
 
 	return cpus, nil
