@@ -117,13 +117,13 @@ func HTTPcarte(w http.ResponseWriter, _ *http.Request) {
 }
 
 func HTTP1carte(w http.ResponseWriter, req *http.Request) {
-	log.Print("/processus/{name}")
+	log.Print("/carte/{name}")
 	vars := mux.Vars(req)
 	m, err := system.Get1CarteReseau(vars["name"])
 	if err != nil {
-		log.Printf("Feeler /processus{name} : %v", err)
+		log.Printf("Feeler /carte/{name} : %v", err)
 	}
-	system.EnvoiJSON(m, "/processus/{name}", w)
+	system.EnvoiJSON(m, "/carte/{name}", w)
 }
 
 func HTTPProcessus(w http.ResponseWriter, _ *http.Request) {
