@@ -76,5 +76,6 @@ func Get1Disque(id string) (Disque, error) {
 			break
 		}
 	}
+
 	return d, nil
 }
