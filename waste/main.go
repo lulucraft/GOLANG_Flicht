@@ -79,6 +79,16 @@ func HTTPKillProcessus(w http.ResponseWriter, req *http.Request) {
 	system.EnvoiJSON(m, "/processus/kill/{id}", w)
 }
 
+func HTTP1processus(w http.ResponseWriter, req *http.Request) {
+	log.Print("/processus/{id}")
+	vars := mux.Vars(req)
+	m, err := system.Get1Processus(vars["id"])
+	if err != nil {
+		log.Printf("Feeler /processus{id} : %v", err)
+	}
+	system.EnvoiJSON(m, "/processus/{id}", w)
+}
+
 func HTTPcharge(w http.ResponseWriter, _ *http.Request) {
 	log.Print("/charge")
 	m, err := system.GetCharge()
@@ -106,6 +116,16 @@ func HTTPcarte(w http.ResponseWriter, _ *http.Request) {
 	system.EnvoiJSON(m, "/carte", w)
 }
 
+func HTTP1carte(w http.ResponseWriter, req *http.Request) {
+	log.Print("/processus/{name}")
+	vars := mux.Vars(req)
+	m, err := system.Get1CarteReseau(vars["name"])
+	if err != nil {
+		log.Printf("Feeler /processus{name} : %v", err)
+	}
+	system.EnvoiJSON(m, "/processus/{name}", w)
+}
+
 func HTTPProcessus(w http.ResponseWriter, _ *http.Request) {
 	log.Print("/charge")
 	m, err := system.GetProcessus()
@@ -125,6 +145,16 @@ func main() {
 	r.HandleFunc("/ip/passerelle", HTTPippasserelle)
 	r.HandleFunc("/ip/{id}", HTTP1ip)
 	r.HandleFunc("/ip", HTTPip)
+	r.HandleFunc("/charge", HTTPcharge)
+	r.HandleFunc("/memoire", HTTPmemoire)
+
+	r.HandleFunc("/carte", HTTPcarte)
+	r.HandleFunc("/carte/{name}", HTTP1carte)
+
+	r.HandleFunc("/processus", HTTPProcessus)
+	r.HandleFunc("/processus/{id}", HTTP1processus)
+	r.HandleFunc("/processus/kill/{id}", HTTPKillProcessus)
+
 	// Fir ofzeschléissen ...
 	http.ListenAndServe(":8090", r)
 }
