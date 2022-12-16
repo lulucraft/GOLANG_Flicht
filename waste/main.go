@@ -54,6 +54,16 @@ func HTTPdisque(w http.ResponseWriter, _ *http.Request) {
 	system.EnvoiJSON(m, "/disque", w)
 }
 
+func HTTP1disque(w http.ResponseWriter, req *http.Request) {
+	log.Print("/disque/{id}")
+	vars := mux.Vars(req)
+	m, err := system.Get1Disque(vars["id"])
+	if err != nil {
+		log.Printf("Feeler /disque/{id} : %v", err)
+	}
+	system.EnvoiJSON(m, "/disque/{id}", w)
+}
+
 func HTTPapi(w http.ResponseWriter, _ *http.Request) {
 	log.Print("/api")
 	system.EnvoiJSON(system.GetAPI(), "/api", w)
@@ -65,6 +75,7 @@ func main() {
 	r.HandleFunc("/api", HTTPapi)
 	r.HandleFunc("/cpu", HTTPcpu)
 	r.HandleFunc("/disque", HTTPdisque)
+	r.HandleFunc("/disque/{id}", HTTP1disque)
 	r.HandleFunc("/ip/passerelle", HTTPippasserelle)
 	r.HandleFunc("/ip/{id}", HTTP1ip)
 	r.HandleFunc("/ip", HTTPip)

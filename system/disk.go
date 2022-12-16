@@ -43,6 +43,7 @@ func GetDisque() ([]Disque, error) {
 			disks = append(disks, d)
 		}
 	}
+
 	return disks, nil
 }
 
