@@ -52,7 +52,7 @@ func Get1PC1Processus(ip string, id string) (Processus, error) {
 func Get1PCKillProcessus(ip string, id string) (string, error) {
 	resp, err := http.Get("http://" + ip + ":8090/processus/kill/" + id)
 	if err != nil {
-		return "", err
+		return "url error", err
 	}
 
 	defer resp.Body.Close()
